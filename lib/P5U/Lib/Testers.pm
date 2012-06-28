@@ -1,8 +1,13 @@
 package P5U::Lib::Testers;
 
 use 5.010;
-use strict;
 use utf8;
+
+BEGIN {
+	$P5U::Lib::Testers::AUTHORITY = 'cpan:TOBYINK';
+	$P5U::Lib::Testers::VERSION   = '0.001';
+};
+
 use Any::Moose       0;
 use File::Path       0 qw< make_path >;
 use File::Spec       0 qw< >;
@@ -159,8 +164,8 @@ sub _build_results
 
 sub _build_cache_dir
 {
-	my $dir = File::Spec->catdir(
-		File::Spec->tmpdir,
+	my $dir = File::Spec::->catdir(
+		File::Spec::->tmpdir,
 		'CpanTesters',
 	);
 	make_path $dir unless -d $dir;

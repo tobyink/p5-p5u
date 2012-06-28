@@ -2,7 +2,13 @@ package P5U::Command::DebianRelease;
 
 use 5.010;
 use strict;
+use utf8;
 use P5U-command;
+
+BEGIN {
+	$P5U::Command::DebianRelease::AUTHORITY = 'cpan:TOBYINK';
+	$P5U::Command::DebianRelease::VERSION   = '0.001';
+};
 
 use constant {
 	abstract    => q[show distribution version in Debian unstable],

@@ -4,6 +4,12 @@ package P5U::Lib::DebianRelease;
 
 use 5.010;
 use utf8;
+
+BEGIN {
+	$P5U::Lib::DebianRelease::AUTHORITY = 'cpan:TOBYINK';
+	$P5U::Lib::DebianRelease::VERSION   = '0.001';
+};
+
 use Any::Moose       0;
 use File::Slurp      0     qw< read_file >;
 use IO::Uncompress::Gunzip qw< gunzip $GunzipError >;
@@ -12,7 +18,7 @@ use LWP::Simple      0     qw< get >;
 use namespace::clean;
 
 my $cachef = "/tmp/allpackages.cache";
-my $json   = JSON->new->allow_nonref;
+my $json   = JSON::->new->allow_nonref;
 
 sub dist2deb
 {

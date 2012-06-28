@@ -2,8 +2,15 @@ package P5U::Command::Testers;
 
 use 5.010;
 use strict;
-use PerlX::Maybe 0 'maybe';
+use utf8;
 use P5U-command;
+
+use PerlX::Maybe 0 'maybe';
+
+BEGIN {
+	$P5U::Command::Testers::AUTHORITY = 'cpan:TOBYINK';
+	$P5U::Command::Testers::VERSION   = '0.001';
+};
 
 use constant {
 	abstract    => q[show CPAN testers statistics for a distribution],

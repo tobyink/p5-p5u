@@ -1,12 +1,14 @@
 package P5U;
 
 use 5.010;
+use utf8;
+
 use App::Cmd::Setup -app;
 
 BEGIN {
 	$P5U::AUTHORITY = 'cpan:TOBYINK';
 	$P5U::VERSION   = '0.001';
-}
+};
 
 __PACKAGE__
 __END__
