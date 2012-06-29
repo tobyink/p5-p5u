@@ -90,11 +90,12 @@ sub execute
 		
 	P5U::Lib::Reprove::
 		-> new(
-			maybe author  => $opt->{author},
-			maybe module  => $opt->{module},
-			maybe release => $opt->{release},
-			maybe version => $opt->{version},
-			maybe verbose => $opt->{verbose},
+			maybe author      => $opt->{author},
+			maybe module      => $opt->{module},
+			maybe release     => $opt->{release},
+			maybe version     => $opt->{version},
+			maybe verbose     => $opt->{verbose},
+			      working_dir => $self->get_tempdir,
 		)
 		-> run;
 }

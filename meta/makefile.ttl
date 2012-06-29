@@ -12,6 +12,7 @@
 	:requires           "App::Cmd";
 	:requires           "autodie";
 	:requires           "Class::Load";
+	:requires           "File::HomeDir";
 	:requires           "File::Path";
 	:requires           "File::pushd";
 	:requires           "File::Slurp";

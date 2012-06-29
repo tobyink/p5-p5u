@@ -53,10 +53,11 @@ sub execute
 	$distro =~ s{::}{-}g;
 	
 	my $helper = P5U::Lib::Testers::->new(
-				distro  =>   $distro,
-				os_data => !!$opt->{os_data},
-				stable  => !!$opt->{stable},
-		maybe version =>   $opt->{version},
+		      distro    =>   $distro,
+		      os_data   => !!$opt->{os_data},
+		      stable    => !!$opt->{stable},
+		maybe version   =>   $opt->{version},
+		      cache_dir =>   $self->get_cachedir->stringify,
 	);
 	
 	if ($opt->{summary})

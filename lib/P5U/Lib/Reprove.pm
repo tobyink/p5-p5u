@@ -12,11 +12,9 @@ use Any::Moose;
 use App::Prove qw//;
 use Class::Load qw/load_class/;
 use JSON qw/from_json/;
-use File::Basename qw/fileparse/;
 use File::pushd qw/pushd/;
-use File::Path qw/make_path/;
-use File::Spec qw//;
 use File::Temp qw//;
+use Path::Class qw//;
 use LWP::Simple qw/get/;
 use Module::Manifest qw//;
 use Object::AUTHORITY qw/AUTHORITY/;
@@ -47,7 +45,13 @@ has manifest => (
 
 has testdir => (
 	is         => 'ro',
-	isa        => 'File::Temp::Dir',
+	isa        => 'Path::Class::Dir',
+	lazy_build => 1,
+);
+
+has working_dir => (
+	is         => 'ro',
+	isa        => 'Path::Class::Dir',
 	lazy_build => 1,
 );
 
@@ -156,34 +160,38 @@ sub _build_author
 sub _build_manifest
 {
 	my $self = shift;
-	my $fh = File::Temp->new;
+	my $fh = $self->working_dir->file('MANIFEST')->openw;
 	binmode( $fh, ":utf8");
 	$self->_getfile_to_handle('MANIFEST', $fh);
 	close $fh;
 	
 	my $manifest = Module::Manifest->new;
-	$manifest->open(manifest => $fh->filename);
+	$manifest->open(manifest => $self->working_dir->file('MANIFEST')->stringify);
 	return [ $manifest->files ];
 }
 
 sub _build_testdir
 {
-	my $self = shift;
-	my $testdir = File::Temp->newdir;
+	my $self    = shift;
+	my $testdir = $self->working_dir->subdir('t');
+	$testdir->mkpath;
 	
 	foreach my $file ($self->test_files)
 	{
-		my $dest = File::Spec->catfile($testdir->dirname, $file);
-		
-		my (undef, $d, undef) = fileparse($dest);
-		make_path($d);
-		
-		open my $fh, '>', $dest;
-		$self->_getfile_to_handle($file, $fh);
-		close $fh;
+		my $dest = $testdir->file($file);
+		$dest->dir->mkpath;
+		$self->_getfile_to_handle($file, $dest->openw);
 	}
 	
 	return $testdir;
+}
+
+sub _build_working_dir
+{
+	my $self = shift;
+	Path::Class::Dir::->new(
+		File::Temp::->newdir,
+	);
 }
 
 sub _app_prove_args
@@ -195,8 +203,8 @@ sub run
 {
 	my $self = shift;
 	printf("Reproving %s/%s (%s)\n", $self->release, $self->version, uc $self->author);
-	printf("Using temp dir '%s'\n", $self->testdir->dirname) if $self->verbose;
-	my $chdir = pushd($self->testdir->dirname);
+	printf("Using temp dir '%s'\n", $self->testdir) if $self->verbose;
+	my $chdir = pushd($self->testdir);
 	my $app   = App::Prove->new;
 	$app->process_args($self->_app_prove_args);
 	$app->verbose(1) if $self->verbose;

@@ -43,7 +43,9 @@ sub execute
 	$self->usage_error("Cannot request both author and distribution report.")
 		if $opt->{author} && $opt->{distribution};
 	
-	my $helper = P5U::Lib::DebianRelease::->new;
+	my $helper = P5U::Lib::DebianRelease::->new(
+		cache_file  => $self->get_cachedir->file('allpackages.cache'),
+	);
 	
 	if ($opt->{author})
 		{ print $helper->author_report($_) for @$args }

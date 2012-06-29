@@ -11,14 +11,11 @@ BEGIN {
 };
 
 use Any::Moose       0;
-use File::Slurp      0     qw< read_file >;
 use IO::Uncompress::Gunzip qw< gunzip $GunzipError >;
 use JSON             2.00  qw< from_json >;
 use LWP::Simple      0     qw< get >;
-use namespace::clean;
 use Object::AUTHORITY qw/AUTHORITY/;
 
-my $cachef = "/tmp/allpackages.cache";
 my $json   = JSON::->new->allow_nonref;
 
 sub dist2deb
@@ -27,22 +24,30 @@ sub dist2deb
 	"lib".lc($dist)."-perl";
 }
 
+use namespace::clean;
+
 has debian => (
-	is       => 'ro',
-	isa      => 'HashRef',
-	lazy     => 1,
-	builder  => '_build_debian',
+	is         => 'ro',
+	isa        => 'HashRef',
+	lazy_build => 1,
+);
+
+has cache_file => (
+	is         => 'ro',
+	required   => 1,
 );
 
 sub _build_debian
 {
+	my $self = shift;
 	my %pkgs;
-	unless ((-f $cachef) && (-M _) < 7)
+	unless ((-f $self->cache_file) && (-M _) < 7)
 	{
 		my $res = get "http://packages.debian.org/unstable/allpackages?format=txt.gz";
-		gunzip(\$res => $cachef) or die "gunzip failed: $GunzipError\n";
+		gunzip(\$res => $self->cache_file->stringify)
+			or die "gunzip failed: $GunzipError\n";
 	}
-	for (read_file $cachef)
+	for ($self->cache_file->slurp)
 	{
 		next unless /^(lib\S+-perl) \((\S+?)\)/;
 		$pkgs{$1} = $2;
