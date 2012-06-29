@@ -13,7 +13,6 @@
 	:requires           "autodie";
 	:requires           "Class::Load";
 	:requires           "File::HomeDir";
-	:requires           "File::Path";
 	:requires           "File::pushd";
 	:requires           "File::Slurp";
 	:requires           "JSON 2.00";
@@ -22,6 +21,8 @@
 	:requires           "Module::Manifest";
 	:requires           "namespace::clean 0.19";
 	:requires           "Object::AUTHORITY";
+	:requires           "Path::Class";
+	:requires	    "Path::Class::Rule";
 	:requires           "PerlX::Maybe";
 	:test_requires      "Test::More 0.61".
 

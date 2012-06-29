@@ -9,12 +9,12 @@ BEGIN {
 };
 
 use Any::Moose       0;
-use File::Path       0 qw< make_path >;
 use File::Spec       0 qw< >;
 use JSON             0 qw< from_json >;
 use LWP::Simple      0 qw< mirror is_success >;
 use List::Util       0 qw< maxstr >;
 use Object::AUTHORITY qw/AUTHORITY/;
+use Path::Class      0 qw< dir file >;
 use namespace::clean;
 
 has cache_dir => (
@@ -139,7 +139,7 @@ sub _build_results
 		substr($self->distro, 0, 1),
 		$self->distro,
 	);
-	my $results_file = File::Spec->catfile(
+	my $results_file = file(
 		$self->cache_dir,
 		sprintf('%s.json', $self->distro),
 	);
@@ -150,11 +150,7 @@ sub _build_results
 			die "Failed to retrieve URI $results_uri\n";
 		};
 		
-	my $results = from_json do {
-		open my $fh, '<', $results_file
-			or die "Could not open $results_file: $!";
-		local $/ = <$fh>;
-	};
+	my $results = from_json scalar $results_file->slurp;
 	die "Unexpected non-ARRAY content from $results_uri\n"
 		unless ref $results eq 'ARRAY';
 	
@@ -165,11 +161,11 @@ sub _build_results
 
 sub _build_cache_dir
 {
-	my $dir = File::Spec::->catdir(
+	my $dir = dir(
 		File::Spec::->tmpdir,
 		'CpanTesters',
 	);
-	make_path $dir unless -d $dir;
+	dir($dir)->mktree unless -d $dir;
 	return $dir;
 }
 
