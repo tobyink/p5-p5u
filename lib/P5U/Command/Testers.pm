@@ -14,9 +14,17 @@ BEGIN {
 
 use constant {
 	abstract    => q[show CPAN testers statistics for a distribution],
-	description => q[],
 	usage_desc  => q[%c testers %o Distribution],
 };
+
+sub command_names
+{
+	qw(
+		testers
+		cpan-testers
+		ct
+	);
+}
 
 sub opt_spec
 {

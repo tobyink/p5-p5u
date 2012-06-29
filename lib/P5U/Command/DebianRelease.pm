@@ -12,7 +12,6 @@ BEGIN {
 
 use constant {
 	abstract    => q[show distribution version in Debian unstable],
-	description => q[],
 	usage_desc  => q[%c debian-release %o Distribution|CPANID],
 };
 
@@ -21,6 +20,7 @@ sub command_names
 	qw(
 		debian-release
 		debian
+		dr
 	);
 }
 

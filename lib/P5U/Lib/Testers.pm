@@ -14,6 +14,7 @@ use File::Spec       0 qw< >;
 use JSON             0 qw< from_json >;
 use LWP::Simple      0 qw< mirror is_success >;
 use List::Util       0 qw< maxstr >;
+use Object::AUTHORITY qw/AUTHORITY/;
 use namespace::clean;
 
 has cache_dir => (

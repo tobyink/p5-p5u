@@ -16,6 +16,7 @@ use IO::Uncompress::Gunzip qw< gunzip $GunzipError >;
 use JSON             2.00  qw< from_json >;
 use LWP::Simple      0     qw< get >;
 use namespace::clean;
+use Object::AUTHORITY qw/AUTHORITY/;
 
 my $cachef = "/tmp/allpackages.cache";
 my $json   = JSON::->new->allow_nonref;
