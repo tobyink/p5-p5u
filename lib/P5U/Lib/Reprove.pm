@@ -100,7 +100,7 @@ sub BUILDARGS
 		{
 			no strict 'refs';
 			my $auth = ${$args{module}.'::AUTHORITY'};
-			if ($auth =~ /^cpan:(.+)$/)
+			if (defined $auth and $auth =~ /^cpan:(.+)$/)
 			{
 				$args{author} = $1;
 			}
