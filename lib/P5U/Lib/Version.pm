@@ -12,6 +12,7 @@ use JSON qw< from_json >;
 use LWP::Simple qw< get >;
 use Module::Info;
 use Module::Runtime qw< module_notional_filename >;
+use Object::AUTHORITY;
 
 sub local_module_info
 {

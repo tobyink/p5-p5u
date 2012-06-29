@@ -4,6 +4,7 @@ use 5.010;
 use utf8;
 
 use App::Cmd::Setup -app;
+use Object::AUTHORITY;
 
 BEGIN {
 	$P5U::AUTHORITY = 'cpan:TOBYINK';

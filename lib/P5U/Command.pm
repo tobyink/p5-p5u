@@ -8,6 +8,7 @@ use File::HomeDir qw<>;
 use File::Temp qw<>;
 use JSON qw<>;
 use Path::Class qw<>;
+use Object::AUTHORITY;
 
 my %config;
 

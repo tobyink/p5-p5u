@@ -9,6 +9,7 @@ BEGIN {
 	$P5U::Command::TestPod::VERSION   = '0.001';
 };
 
+use Object::AUTHORITY;
 use Path::Class;
 use Path::Class::Rule;
 use Test::More;
