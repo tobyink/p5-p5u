@@ -24,6 +24,7 @@
 	:requires           "Path::Class";
 	:requires	    "Path::Class::Rule";
 	:requires           "PerlX::Maybe";
+	:requires           "Test::Pod";
 	:test_requires      "Test::More 0.61".
 
 _:main nfo:fileName "lib/P5U.pm".
