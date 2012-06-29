@@ -14,6 +14,7 @@ use Class::Load qw/load_class/;
 use JSON qw/from_json/;
 use File::pushd qw/pushd/;
 use File::Temp qw//;
+use Module::Info qw//;
 use Path::Class qw//;
 use LWP::Simple qw/get/;
 use Module::Manifest qw//;
@@ -82,8 +83,7 @@ sub BUILDARGS
 	
 	if (defined $args{module} and not defined $args{version})
 	{
-		load_class($args{module});
-		$args{version} = $args{module}->VERSION;
+		$args{version} = Module::Info::->new_from_module($args{module})->version;
 	}
 	
 	if (defined $args{module} and not defined $args{author})

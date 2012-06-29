@@ -43,7 +43,7 @@ The first argument is the distribution name or module name; the second
 argument is the version; and the third argument is the CPAN ID of the
 author. The presence of "::" is used to disambiguate between distribution
 and module names; in the case of something like "JSON" which is ambiguous,
-use a leading "::" to force it to be interpreted as a module name.
+use a trailing "::" to force it to be interpreted as a module name.
 
 When given a distribution name, the version is required. When given a
 module name, the version can usually be automatically detected. The author
@@ -77,7 +77,7 @@ sub execute
 		
 		if ($a eq 'release' and $val =~ /::/)
 		{
-			$val =~ s{^::}{};
+			$val =~ s{::$}{};
 			$opt->{module} = $val;
 			next;
 		}
