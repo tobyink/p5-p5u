@@ -221,13 +221,13 @@ P5U::Lib::Reprove - download a distribution's tests and prove them
 
 =head1 SYNOPSIS
 
-my $test = P5U::Lib::Reprove::->new(
- author  => 'TOBYINK',
- release => 'Object-AUTHORITY',
- version => '0.003',
- verbose => 1,
-);
-$test->run;
+ my $test = P5U::Lib::Reprove::->new(
+     author  => 'TOBYINK',
+     release => 'Object-AUTHORITY',
+     version => '0.003',
+     verbose => 1,
+ );
+ $test->run;
 
 =head1 DESCRIPTION
 
@@ -241,6 +241,9 @@ test suite must be installed.
 
 It makes a number of assumptions about how a distribution's test cases are
 structured, but these assumptions do tend to hold in most cases.
+
+This work was previously released as B<Module::Reprove>, but has now been
+rafactored and integrated with L<P5U>.
 
 =head2 Constructor
 
@@ -274,17 +277,24 @@ to provide it.
 
 Boolean indicating whether output should be verbose. Optional, defaults to false.
 
+=item C<< working_dir >>
+
+A L<Path::Class::Dir> object pointing to a directory where all the working
+will be done. If you don't provide one to the constructor, P5U::Lib::Reprove
+is sensible enough to create a temporary directory for working in (and delete
+it afterwards).
+
 =item C<< manifest >>
 
 An arrayref of strings, listing all the files in the distribution.
-Don't provide this to the constructor - just allow Module::Reprove
+Don't provide this to the constructor - just allow P5U::Lib::Reprove
 to build it.
 
 =item C<< testdir >>
 
-A L<File::Temp::Dir> object pointing to a directory which contains
-a subdirectory "t" full of test files. Don't provide this to the
-constructor - just allow Module::Reprove to build it.
+A L<Path::Class::Dir> object pointing to a directory where test cases
+are stored. Don't provide this to the constructor - just allow
+P5U::Lib::Reprove to build it.
 
 =back
 
@@ -324,7 +334,9 @@ L<http://rt.cpan.org/Dist/Display.html?Queue=P5U>.
 
 =head1 SEE ALSO
 
-L<P5U>.
+L<p5u>.
+
+L<http://www.perlmonks.org/?node_id=942886>.
 
 =head1 AUTHOR
 

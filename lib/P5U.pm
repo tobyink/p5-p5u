@@ -20,7 +20,12 @@ P5U - utilities for Perl 5 development and administration
 
 =head1 SYNOPSIS
 
+ use P5U;
+ P5U->run;
+
 =head1 DESCRIPTION
+
+This is the module supporting the C<p5u> command-line tool.
 
 =head1 BUGS
 
@@ -29,7 +34,7 @@ L<http://rt.cpan.org/Dist/Display.html?Queue=P5U>.
 
 =head1 SEE ALSO
 
-
+L<p5u>.
 
 =head1 AUTHOR
 
@@ -41,7 +46,6 @@ This software is copyright (c) 2012 by Toby Inkster.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
-
 
 =head1 DISCLAIMER OF WARRANTIES
 

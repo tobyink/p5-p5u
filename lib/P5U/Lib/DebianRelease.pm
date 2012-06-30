@@ -141,3 +141,137 @@ sub distribution_data
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+P5U::Lib::DebianRelease - support library implementing p5u's debian-release command
+
+=head1 SYNOPSIS
+
+ use P5U::Lib::DebianRelease;
+ use Path::Class qw(file dir);
+ 
+ my $dr = P5U::Lib::DebianRelease->new(
+   cache_file  => file("/tmp/debian.data"),
+ );
+ 
+ my $author_data = $dr->author_data('tobyink');
+ foreach my $dist (@$author_data)
+ {
+   print "Dist:   $dist->[0]\n";
+   print "CPAN:   $dist->[1]\n";
+   print "Debian: $dist->[2]\n\n";
+ }
+
+=head1 DESCRIPTION
+
+This is a support library for the debian-release command.
+
+It's an L<Any::Moose>-based class.
+
+=head2 Constructor
+
+=over
+
+=item C<< new(%attributes) >>
+
+Creates a new instance of the class.
+
+=back
+
+=head2 Attributes
+
+=over
+
+=item C<< cache_file >>
+
+A Path::Class::File representing the location we should download Debian
+release data to (and cache it). This is required, so provided it to the
+constructor.
+
+=item C<< debian >>
+
+A hashref mapping Debian packages to versions. You presumably don't want
+to provide this data in the constructor. Let the module handle building
+it for you!
+
+=back
+
+=head2 Methods
+
+=over
+
+=item C<< author_data($cpanid) >>
+
+Get a list of the author's distributions which are included in Debian.
+This is an AoA (array of arrays) structure. The "outer" array is the list.
+Each "inner" array is three elements long; the first element being the
+distribution name; the second, the version number of the latest non-dev 
+release on CPAN; and the third, the version number in Debian.
+
+=item C<< distribution_data($dist) >>
+
+Returns a similar AoA to C<author_data>, but selected by distribution name
+rather than author. The "outer" array will only ever contain one "inner"
+array, so is redundant, but included for consistency.
+
+Unlike C<author_data>, the third element will be the string "(none)" when
+the distribution does not appear in Debian.
+
+=item C<< format_report >>
+
+Given an AoA structure as above, formats it into a single string for printing
+to a terminal or other output device using a fixed-width font.
+
+=item C<< author_report($cpanid) >>
+
+C<author_data> and C<format_report> in a single method call.
+
+=item C<< distribution_report($dist) >>
+
+C<distribution_data> and C<format_report> in a single method call.
+
+=back
+
+=head2 Function
+
+=over
+
+=item C<< P5U::Lib::DebianRelease::dist2deb($dist) >>
+
+Returns the expected Debian package name for a distribution. For example,
+given "Foo-Bar" will return "libfoo-bar-perl".
+
+=back
+
+=head1 BUGS
+
+Please report any bugs to
+L<http://rt.cpan.org/Dist/Display.html?Queue=P5U>.
+
+=head1 SEE ALSO
+
+L<p5u>.
+
+=head1 AUTHOR
+
+Toby Inkster E<lt>tobyink@cpan.orgE<gt>.
+
+This module is largely based on a script by Steven Haryanto, so any credit
+belongs to him. Any blame is almost certainly down to the changes I've made.
+
+=head1 COPYRIGHT AND LICENCE
+
+This software is copyright (c) 2012 by Toby Inkster.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=head1 DISCLAIMER OF WARRANTIES
+
+THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
+MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+

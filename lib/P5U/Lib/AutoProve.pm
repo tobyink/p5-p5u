@@ -73,7 +73,7 @@ sub get_app
 	push @args, 't'  if -d 't';
 	push @args, 'xt' if -d 'xt' && $do_author_tests;
 	
-	chdir $origwd;	
+	chdir $origwd;
 
 	print join(q{ }, prove => @args), "\n"
 		if $opt{verbose};
@@ -84,3 +84,73 @@ sub get_app
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+P5U::Lib::AutoProve - support library implementing p5u's auto-prove command
+
+=head1 SYNOPSIS
+
+ use P5U::Lib::AutoProve;
+ 
+ my ($dir, $app) = P5U::Lib::AutoProve->get_app(
+     verbose  => 1,
+     xt       => 1,
+ );
+ 
+ chdir $dir;
+ $app->run;
+
+=head1 DESCRIPTION
+
+This is a support library for the auto-prove command.
+
+=head2 Class Method
+
+There's only one method (a class method, not an object method... this
+isn't really an OO module) worth caring about:
+
+=over
+
+=item C<< get_app(%opts) >>
+
+Returns a two-item list. The first is a directory to chdir to; the second
+is an instance of L<App::Prove> which the C<run> method should be called
+on.
+
+%opts represents the command-line options passed to prove. When options
+have an abbreviated and full version (e.g. C<< -v >> versus C<< --verbose >>)
+the longer version is expected, without the dashes. For boolean options,
+the value is ignored; the existance of the option in the hash at all (even
+with a false or undefined value) switches it on.
+
+=back
+
+=head1 BUGS
+
+Please report any bugs to
+L<http://rt.cpan.org/Dist/Display.html?Queue=P5U>.
+
+=head1 SEE ALSO
+
+L<p5u>.
+
+=head1 AUTHOR
+
+Toby Inkster E<lt>tobyink@cpan.orgE<gt>.
+
+=head1 COPYRIGHT AND LICENCE
+
+This software is copyright (c) 2012 by Toby Inkster.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=head1 DISCLAIMER OF WARRANTIES
+
+THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
+MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+

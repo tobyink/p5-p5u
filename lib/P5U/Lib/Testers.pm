@@ -17,31 +17,16 @@ use Object::AUTHORITY qw/AUTHORITY/;
 use Path::Class      0 qw< dir file >;
 use namespace::clean;
 
-has cache_dir => (
-	is       => 'ro',
-	isa      => 'Str',
-	lazy     => 1,
-	builder  => '_build_cache_dir',
-);
-
 has distro => (
-	is       => 'ro',
-	isa      => 'Str',
-	required => 1,
-);
-
-has results => (
-	is       => 'ro',
-	isa      => 'ArrayRef',
-	lazy     => 1,
-	builder  => '_build_results',
+	is         => 'ro',
+	isa        => 'Str',
+	required   => 1,
 );
 
 has version => (
-	is       => 'ro',
-	isa      => 'Str',
-	lazy     => 1,
-	builder  => '_build_version',
+	is         => 'ro',
+	isa        => 'Str',
+	lazy_build => 1,
 );
 
 has os_data => (
@@ -54,6 +39,18 @@ has stable => (
 	is       => 'ro',
 	isa      => 'Bool',
 	default  => 0,
+);
+
+has cache_dir => (
+	is         => 'ro',
+	isa        => 'Str',
+	lazy_build => 1,
+);
+
+has results => (
+	is         => 'ro',
+	isa        => 'ArrayRef',
+	lazy_build => 1,
 );
 
 sub version_data
@@ -170,3 +167,138 @@ sub _build_cache_dir
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+P5U::Lib::Testers - support library implementing p5u's debian-release command
+
+=head1 SYNOPSIS
+
+ use P5U::Lib::DebianRelease;
+ use Path::Class qw(file dir);
+ 
+ my $dr = P5U::Lib::DebianRelease->new(
+   cache_file  => file("/tmp/debian.data"),
+ );
+ 
+ my $author_data = $dr->author_data('tobyink');
+ foreach my $dist (@$author_data)
+ {
+   print "Dist:   $dist->[0]\n";
+   print "CPAN:   $dist->[1]\n";
+   print "Debian: $dist->[2]\n\n";
+ }
+
+=head1 DESCRIPTION
+
+This is a support library for the testers command.
+
+It's an L<Any::Moose>-based class.
+
+=head2 Constructor
+
+=over
+
+=item C<< new(%attributes) >>
+
+Creates a new instance of the class.
+
+=back
+
+=head2 Attributes
+
+=over
+
+=item C<distro>
+
+Distribution name; read-only; string; required.
+
+=item C<version>
+
+Version number; read-only; string.
+
+If omitted, the latest version for which CPAN Testers results are available
+is assumed.
+
+=item C<os_data>
+
+Indicates that reports should be split by operating system. Read-only;
+boolean; default false.
+
+=item C<stable>
+
+Indicates that reports should ignore development releases. Read-only;
+boolean; default false.
+
+=item C<cache_dir>
+
+A directory for caching JSON files into. Read-only; string. If omitted,
+something sensible will be used.
+
+=item C<results>
+
+The CPAN testsers results, as an array of hashes. You generally do not
+want to set this yourself, but rely on this module to build it for you!
+
+=back
+
+=head2 Methods
+
+=over
+
+=item C<version_data>
+
+Returns a hashref. Keys are Perl versions such as "Perl 5.008", or if
+C<os_data> is true "Perl 5.008, Linux". Values are arrayrefs of three
+numbers indicating counts of passes, fails and other results respectively.
+
+=item C<summary_data>
+
+Returns a similar hash of arrays (HoA) structure to C<version_data>,
+except keys are versions of the distribution, not versions of Perl.
+
+=item C<format_report>
+
+Given an HoA structure as above, formats it into a single string for printing
+to a terminal or other output device using a fixed-width font.
+
+=item C<< version_report >>
+
+C<version_data> and C<format_report> in a single method call.
+
+=item C<< summary_report >>
+
+C<summary_data> and C<format_report> in a single method call.
+
+=back
+
+=head1 BUGS
+
+Please report any bugs to
+L<http://rt.cpan.org/Dist/Display.html?Queue=P5U>.
+
+=head1 SEE ALSO
+
+L<p5u>.
+
+L<http://www.perlmonks.org/?node_id=978606>.
+
+=head1 AUTHOR
+
+Toby Inkster E<lt>tobyink@cpan.orgE<gt>.
+
+=head1 COPYRIGHT AND LICENCE
+
+This software is copyright (c) 2012 by Toby Inkster.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=head1 DISCLAIMER OF WARRANTIES
+
+THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED
+WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF
+MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
