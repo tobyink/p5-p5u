@@ -13,7 +13,7 @@ BEGIN {
 use Cwd 'cwd';
 
 use constant {
-	abstract    => q[show CPAN testers statistics for a distribution],
+	abstract    => q[automatically find the most likely test suite, and run it],
 	usage_desc  => q[%c auto-prove %o],
 };
 
@@ -23,6 +23,22 @@ sub command_names
 		auto-prove
 		ap
 	);
+}
+
+sub description
+{
+<<'DESCRIPTION'
+The auto-prove command climbs up your directory hierarchy, looking for a
+directory which has a subdirectory called "t". It then performs a chdir to
+that directory, runs "prove" with the most likely options and does a chdir
+back to where you started.
+
+In short, if you're in a terminal working in some deeply nested directory
+containing code files, you don't need to play the "guess how many
+dot-dot-slashes game". Just type "p5u ap".
+
+You can additionally run author tests using "p5u ap --xt".
+DESCRIPTION
 }
 
 sub opt_spec
