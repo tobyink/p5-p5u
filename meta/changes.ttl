@@ -24,4 +24,5 @@ dist:v_0-002
 	dcs:changeset [
 		dcs:versus dist:v_0-001 ;
 		dcs:item   [ rdfs:label "Lots and lots of documentation."@en; a dcs:Documentation ];
+		dcs:item   [ rdfs:label "'whois' command."@en; a dcs:Addition ];
 	].
