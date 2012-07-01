@@ -1,7 +1,9 @@
-use Test::More skip_all => "don't care so much about this";
+use Test::More;
 use Test::Pod::Coverage;
 
-my @modules = qw(P5U);
+my @modules = 
+	map { "P5U::Lib::$_" }
+	qw( AutoProve DebianRelease Reprove Testers TestPod Version Whois );
 pod_coverage_ok($_, "$_ is covered")
 	foreach @modules;
 done_testing(scalar @modules);

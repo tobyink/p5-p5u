@@ -15,7 +15,7 @@ use Path::Class::Rule;
 use Test::More;
 use Test::Pod;
 
-sub uniq
+sub _uniq
 {
 	my %already;
 	grep { not $already{"$_"}++ } @_;
@@ -26,7 +26,7 @@ sub test_pod
 	my $self = shift;
 	
 	my @files = 
-		uniq
+		_uniq
 		map {
 			(-d $_)
 				? Path::Class::Rule::->new->or(

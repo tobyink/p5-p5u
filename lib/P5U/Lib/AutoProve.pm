@@ -128,6 +128,18 @@ with a false or undefined value) switches it on.
 
 =back
 
+=begin private
+
+=item change_to_suitable_directory
+
+=item opts
+
+=item build_option_args
+
+=item build_lib_args
+
+=end private
+
 =head1 BUGS
 
 Please report any bugs to
