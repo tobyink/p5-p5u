@@ -6,7 +6,7 @@ use utf8;
 
 BEGIN {
 	$P5U::Command::TestPod::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Command::TestPod::VERSION   = '0.001';
+	$P5U::Command::TestPod::VERSION   = '0.002';
 };
 
 use Object::AUTHORITY;
