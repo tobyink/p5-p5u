@@ -5,7 +5,7 @@ use utf8;
 
 BEGIN {
 	$P5U::Lib::Version::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Lib::Version::VERSION   = '0.003';
+	$P5U::Lib::Version::VERSION   = '0.004';
 };
 
 use JSON qw< from_json >;

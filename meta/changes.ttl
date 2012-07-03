@@ -38,3 +38,14 @@ dist:v_0-003
 		dcs:item   [ rdfs:label "Fix a few abstracts."@en; a dcs:Documentation, dcs:Bugfix ];
 		dcs:item   [ rdfs:label "Fix 'bin/p5u' for Perl < 5.14."@en; a dcs:Bugfix ];
 	].
+
+dist:project :release dist:v_0-004 .
+dist:v_0-004
+	a               :Version ;
+	dc:issued       "2012-07-03"^^xsd:date ;
+	:revision       "0.004"^^xsd:string ;
+	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/P5U-0.004.tar.gz> ;
+	dcs:changeset [
+		dcs:versus dist:v_0-003 ;
+		dcs:item   [ rdfs:label "Debian package list regexp bugfix."@en; a dcs:Bugfix ];
+	].

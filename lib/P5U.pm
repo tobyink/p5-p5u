@@ -8,7 +8,7 @@ use Object::AUTHORITY;
 
 BEGIN {
 	$P5U::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::VERSION   = '0.003';
+	$P5U::VERSION   = '0.004';
 };
 
 __PACKAGE__

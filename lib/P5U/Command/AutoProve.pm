@@ -7,7 +7,7 @@ use P5U-command;
 
 BEGIN {
 	$P5U::Command::AutoProve::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Command::AutoProve::VERSION   = '0.003';
+	$P5U::Command::AutoProve::VERSION   = '0.004';
 };
 
 use Cwd 'cwd';
