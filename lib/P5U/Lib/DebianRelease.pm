@@ -49,7 +49,7 @@ sub _build_debian
 	}
 	for ($self->cache_file->slurp)
 	{
-		next unless /^(lib\S+-perl) \((\S+?)\)/;
+		next unless /^(lib\S+?-perl) \((\S+).*\)/;
 		$pkgs{$1} = $2;
 	}
 	\%pkgs
@@ -111,6 +111,10 @@ sub author_data
 		$dist =~ s/-(\d.+)//;
 		$dists{$dist} = $1;
 	}
+
+#	use Data::Dumper;
+#	$Data::Dumper::Sortkeys = 1;
+#	print Dumper $pkgs;
 
 	my @data;
 	for my $dist (sort keys %dists)
