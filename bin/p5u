@@ -3,7 +3,7 @@
 use P5U;
 use File::Basename 'basename';
 
-unshift $1, @ARGV
+unshift @ARGV, $1
 	if basename($0) =~ /^p5u-(\w+)$/;
 
 P5U->run;
