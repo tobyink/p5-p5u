@@ -1,5 +1,10 @@
 package P5U::Lib::Whois;
 
+BEGIN {
+	$P5U::Lib::Whois::AUTHORITY = 'cpan:TOBYINK';
+	$P5U::Lib::Whois::VERSION   = '0.002';
+};
+
 use Any::Moose; no warnings;
 use JSON qw(from_json);
 use LWP::Simple qw(get);
@@ -182,7 +187,7 @@ __END__
 
 =head1 NAME
 
-P5U::Lib::Testers - support library implementing p5u's debian-release command
+P5U::Lib::Whois - support library implementing p5u's whois command
 
 =head1 SYNOPSIS
 

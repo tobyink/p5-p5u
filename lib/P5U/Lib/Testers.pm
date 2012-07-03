@@ -172,7 +172,7 @@ __END__
 
 =head1 NAME
 
-P5U::Lib::Testers - support library implementing p5u's debian-release command
+P5U::Lib::Testers - support library implementing p5u's testers command
 
 =head1 SYNOPSIS
 
