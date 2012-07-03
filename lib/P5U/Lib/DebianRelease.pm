@@ -7,7 +7,7 @@ use utf8;
 
 BEGIN {
 	$P5U::Lib::DebianRelease::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Lib::DebianRelease::VERSION   = '0.002';
+	$P5U::Lib::DebianRelease::VERSION   = '0.003';
 };
 
 use Any::Moose       0;

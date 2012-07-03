@@ -2,7 +2,7 @@ package P5U::Lib::Whois;
 
 BEGIN {
 	$P5U::Lib::Whois::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Lib::Whois::VERSION   = '0.002';
+	$P5U::Lib::Whois::VERSION   = '0.003';
 };
 
 use Any::Moose; no warnings;

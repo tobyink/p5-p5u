@@ -26,3 +26,15 @@ dist:v_0-002
 		dcs:item   [ rdfs:label "Lots and lots of documentation."@en; a dcs:Documentation ];
 		dcs:item   [ rdfs:label "'whois' command."@en; a dcs:Addition ];
 	].
+
+dist:project :release dist:v_0-003 .
+dist:v_0-003
+	a               :Version ;
+	dc:issued       "2012-07-03"^^xsd:date ;
+	:revision       "0.003"^^xsd:string ;
+	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/P5U-0.003.tar.gz> ;
+	dcs:changeset [
+		dcs:versus dist:v_0-002 ;
+		dcs:item   [ rdfs:label "Fix a few abstracts."@en; a dcs:Documentation, dcs:Bugfix ];
+		dcs:item   [ rdfs:label "Fix 'bin/p5u' for Perl < 5.14."@en; a dcs:Bugfix ];
+	].

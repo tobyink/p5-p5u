@@ -5,7 +5,7 @@ use utf8;
 
 BEGIN {
 	$P5U::Lib::Testers::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Lib::Testers::VERSION   = '0.002';
+	$P5U::Lib::Testers::VERSION   = '0.003';
 };
 
 use Any::Moose       0;
