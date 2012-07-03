@@ -7,13 +7,25 @@ use P5U-command;
 
 BEGIN {
 	$P5U::Command::DebianRelease::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Command::DebianRelease::VERSION   = '0.003';
+	$P5U::Command::DebianRelease::VERSION   = '0.004';
 };
 
 use constant {
 	abstract    => q[show distribution version in Debian unstable],
 	usage_desc  => q[%c debian-release %o Distribution|CPANID],
 };
+
+use constant description => <<'DESCRIPTION';
+This command shows which Perl distributions are available in Debian
+unstable. The version numbers of the latest CPAN release and the latest
+Debian package are shown side-by-side, and when Debian is not up to date,
+two exclamation marks are shown.
+
+Examples:
+	p5u debian-release Task-Weaken
+	p5u debian-release -a ADAMK
+
+DESCRIPTION
 
 sub command_names
 {
