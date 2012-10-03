@@ -6,6 +6,7 @@
 @prefix dist:    <http://purl.org/NET/cpan-uri/dist/P5U/> .
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
 
 dist:project :release dist:v_0-001 .
 dist:v_0-001
@@ -49,3 +50,17 @@ dist:v_0-004
 		dcs:versus dist:v_0-003 ;
 		dcs:item   [ rdfs:label "Debian package list regexp bugfix."@en; a dcs:Bugfix ];
 	].
+
+_:mst foaf:nick "MSTROUT" .
+
+dist:project :release dist:v_0-005 .
+dist:v_0-005
+	a               :Version ;
+	dc:issued       "2012-10-03"^^xsd:date ;
+	:revision       "0.005"^^xsd:string ;
+	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/P5U-0.005.tar.gz> ;
+	dcs:changeset [
+		dcs:versus dist:v_0-004 ;
+		dcs:item   [ rdfs:label "Switch from Any::Moose to Moo."@en; a dcs:Update; dcs:thanks _:mst ];
+	].
+
