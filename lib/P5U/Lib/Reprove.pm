@@ -2,15 +2,17 @@ package P5U::Lib::Reprove;
 
 BEGIN {
 	$P5U::Lib::Reprove::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Lib::Reprove::VERSION   = '0.004';
+	$P5U::Lib::Reprove::VERSION   = '0.005';
 };
 
 use 5.010;
 use autodie;
 
-use Any::Moose;
+use Moo;
+use Scalar::Does;
 use App::Prove qw//;
 use Class::Load qw/load_class/;
+use Carp qw/confess/;
 use JSON qw/from_json/;
 use File::pushd qw/pushd/;
 use File::Temp qw//;
@@ -21,46 +23,42 @@ use Module::Manifest qw//;
 use Object::AUTHORITY qw/AUTHORITY/;
 
 has author => (
-	is         => 'ro',
-	isa        => 'Str',
-	lazy_build => 1,
+	is         => 'lazy',
+	isa        => does(q[""]),
 );
 
 has release => (
 	is         => 'ro',
-	isa        => 'Str',
+	isa        => does(q[""]),
 	required   => 1,
 );
 
 has version => (
 	is         => 'ro',
-	isa        => 'Str',
+	isa        => does(q[""]),
 	required   => 1,
 );
 
 has manifest => (
-	is         => 'ro',
-	isa        => 'ArrayRef[Str]',
-	lazy_build => 1,
+	is         => 'lazy',
+	isa        => does(q[ARRAY]),
 );
 
 has testdir => (
-	is         => 'ro',
-	isa        => 'Path::Class::Dir',
-	lazy_build => 1,
+	is         => 'lazy',
+	isa        => does(q[Path::Class::Dir]),
 );
 
 has working_dir => (
-	is         => 'ro',
-	isa        => 'Path::Class::Dir',
-	lazy_build => 1,
+	is         => 'lazy',
+	isa        => does(q[Path::Class::Dir]),
 );
 
 has verbose => (
 	is         => 'rw',
-	isa        => 'Bool',
+	isa        => does(q[bool]),
 	required   => 1,
-	default    => 0,
+	default    => sub { 0 },
 );
 
 sub BUILDARGS
@@ -251,7 +249,7 @@ rafactored and integrated with L<P5U>.
 
 =item C<< new(%attributes) >>
 
-Construct an object with given attributes. This is a Moose-based class.
+Construct an object with given attributes. This is a Moo-based class.
 
 =back
 

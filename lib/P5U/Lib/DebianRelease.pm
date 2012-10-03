@@ -7,10 +7,11 @@ use utf8;
 
 BEGIN {
 	$P5U::Lib::DebianRelease::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Lib::DebianRelease::VERSION   = '0.004';
+	$P5U::Lib::DebianRelease::VERSION   = '0.005';
 };
 
-use Any::Moose       0;
+use Moo;
+use Scalar::Does;
 use IO::Uncompress::Gunzip qw< gunzip $GunzipError >;
 use JSON             2.00  qw< from_json >;
 use LWP::Simple      0     qw< get >;
@@ -27,9 +28,8 @@ sub dist2deb
 use namespace::clean;
 
 has debian => (
-	is         => 'ro',
-	isa        => 'HashRef',
-	lazy_build => 1,
+	is         => 'lazy',
+	isa        => does('HASH'),
 );
 
 has cache_file => (
@@ -173,7 +173,7 @@ P5U::Lib::DebianRelease - support library implementing p5u's debian-release comm
 
 This is a support library for the debian-release command.
 
-It's an L<Any::Moose>-based class.
+It's a L<Moo>-based class.
 
 =head2 Constructor
 

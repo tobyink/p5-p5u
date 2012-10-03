@@ -8,7 +8,6 @@
 	:version_from       _:main;
 	:readme_from        _:main;
 	:install_script     _:script;
-	:requires           "Any::Moose";
 	:requires           "App::Cmd";
 	:requires           "autodie";
 	:requires           "Class::Load";
@@ -18,11 +17,13 @@
 	:requires           "LWP::Simple";
 	:requires           "Module::Info";
 	:requires           "Module::Manifest";
+	:requires           "Moo 1.000000";
 	:requires           "namespace::clean 0.19";
 	:requires           "Object::AUTHORITY";
 	:requires           "Path::Class";
 	:requires           "Path::Class::Rule";
 	:requires           "PerlX::Maybe";
+	:requires           "Scalar::Does 0.004";
 	:requires           "Test::Pod";
 	:test_requires      "Test::More 0.61".
 

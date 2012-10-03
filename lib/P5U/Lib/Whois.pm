@@ -2,10 +2,11 @@ package P5U::Lib::Whois;
 
 BEGIN {
 	$P5U::Lib::Whois::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Lib::Whois::VERSION   = '0.004';
+	$P5U::Lib::Whois::VERSION   = '0.005';
 };
 
-use Any::Moose; no warnings;
+use Moo; no warnings;
+use Scalar::Does;
 use JSON qw(from_json);
 use LWP::Simple qw(get);
 use Object::AUTHORITY;
@@ -19,13 +20,12 @@ use constant {
 
 has cpanid => (
 	is         => 'ro',
-	isa        => 'Str',
+	isa        => does(q[""]),
 );
 
 has metacpan_data => (
-	is         => 'ro',
-	isa        => 'HashRef',
-	lazy_build => 1,
+	is         => 'lazy',
+	isa        => does(q[HASH]),
 );
 
 sub _build_metacpan_data
@@ -34,9 +34,8 @@ sub _build_metacpan_data
 }
 
 has metacpan_releases => (
-	is         => 'ro',
-	isa        => 'ArrayRef',
-	lazy_build => 1,
+	is         => 'lazy',
+	isa        => does(q[ARRAY]),
 );
 
 sub _build_metacpan_releases
@@ -50,31 +49,28 @@ sub _build_metacpan_releases
 	]
 }
 
-has [qw(name city region country)] => (
-	is         => 'ro',
-	isa        => 'Str|Undef',
-	lazy_build => 1,
-);
+has $_ => (
+	is         => 'lazy',
+	isa        => sub { !defined $_[0] or does($_[0], q[""]) },
+) for qw(name city region country);
 
 sub _build_name     { $_[0]->metacpan_data->{name} }
 sub _build_city     { $_[0]->metacpan_data->{city} }
 sub _build_region   { $_[0]->metacpan_data->{region} }
 sub _build_country  { $_[0]->metacpan_data->{country} }
 
-has [qw(latitude longitude)] => (
-	is         => 'ro',
-	isa        => 'Num|Undef',
-	lazy_build => 1,
-);
+has $_ => (
+	is         => 'lazy',
+	isa        => sub { !defined $_[0] or does($_[0], q[0+]) },
+) for qw(latitude longitude);
 
 sub _build_longitude { $_[0]->metacpan_data->{location}[0] }
 sub _build_latitude  { $_[0]->metacpan_data->{location}[1] }
 
-has [qw(website email)] => (
-	is         => 'ro',
-	isa        => 'ArrayRef[Str]',
-	lazy_build => 1,
-);
+has $_ => (
+	is         => 'lazy',
+	isa        => does(q[ARRAY]),
+) for qw(website email);
 
 sub _build_website
 {
@@ -166,7 +162,7 @@ sub report
 		$report .= join "\n", q(), q(Recent:), @recent[0..9], q()
 			if @recent;
 		
-		if (@{ $self->metacpan_data->{profile} })
+		if (@{ $self->metacpan_data->{profile} || [] })
 		{
 			$report .= "\n";
 			for (sort { $a->{name} cmp $b->{name} } @{ $self->metacpan_data->{profile} })
@@ -200,7 +196,7 @@ P5U::Lib::Whois - support library implementing p5u's whois command
 
 This is a support library for the testers command.
 
-It's an L<Any::Moose>-based class.
+It's a L<Moo>-based class.
 
 =head2 Constructor
 

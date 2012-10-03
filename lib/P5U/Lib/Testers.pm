@@ -5,10 +5,11 @@ use utf8;
 
 BEGIN {
 	$P5U::Lib::Testers::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Lib::Testers::VERSION   = '0.004';
+	$P5U::Lib::Testers::VERSION   = '0.005';
 };
 
-use Any::Moose       0;
+use Moo;
+use Scalar::Does;
 use File::Spec       0 qw< >;
 use JSON             0 qw< from_json >;
 use LWP::Simple      0 qw< mirror is_success >;
@@ -19,38 +20,35 @@ use namespace::clean;
 
 has distro => (
 	is         => 'ro',
-	isa        => 'Str',
+	isa        => does(q[""]),
 	required   => 1,
 );
 
 has version => (
-	is         => 'ro',
-	isa        => 'Str',
-	lazy_build => 1,
+	is         => 'lazy',
+	isa        => does(q[""]),
 );
 
 has os_data => (
-	is       => 'ro',
-	isa      => 'Bool',
-	default  => 0,
+	is         => 'ro',
+	isa        => does(q[bool]),
+	default    => sub { 0 },
 );
 
 has stable => (
-	is       => 'ro',
-	isa      => 'Bool',
-	default  => 0,
+	is         => 'ro',
+	isa        => does(q[bool]),
+	default    => sub { 0 },
 );
 
 has cache_dir => (
-	is         => 'ro',
-	isa        => 'Str',
-	lazy_build => 1,
+	is         => 'lazy',
+	isa        => does(q[bool]),
 );
 
 has results => (
-	is         => 'ro',
-	isa        => 'ArrayRef',
-	lazy_build => 1,
+	is         => 'lazy',
+	isa        => does(q[ARRAY]),
 );
 
 sub version_data
@@ -195,7 +193,7 @@ P5U::Lib::Testers - support library implementing p5u's testers command
 
 This is a support library for the testers command.
 
-It's an L<Any::Moose>-based class.
+It's a L<Moo>-based class.
 
 =head2 Constructor
 

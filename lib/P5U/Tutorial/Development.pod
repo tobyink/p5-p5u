@@ -14,12 +14,12 @@ There are some modules that you can use without worrying about performance
 (because App::Cmd or P5U has already loaded them) are L<Class::Load>,
 L<JSON>, L<Path::Class>.
 
-If you need OO, then use L<Any::Moose> (but do it in a workhorse module
-that's loaded on demand) and L<namespace::clean>. If you need the web,
-then use L<LWP::UserAgent> or L<LWP::Simple>. If you need to do stuff
-with the file system, use L<Path::Class> and L<Path::Class::Rule>. These
-are good modules, and they're already listed as P5U dependencies, so
-there's no reason to avoid them.
+If you need OO, then use L<Moo> (but do it in a workhorse module that's
+loaded on demand) and L<namespace::clean>. If you need the web, then use
+L<LWP::UserAgent> or L<LWP::Simple>. If you need to do stuff with the
+file system, use L<Path::Class> and L<Path::Class::Rule>. These are good
+modules, and they're already listed as P5U dependencies, so there's no
+reason to avoid them.
 
 =head2 TEMPLATE
 
