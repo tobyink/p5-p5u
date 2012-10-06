@@ -2,7 +2,7 @@ package P5U::Command::Commands;
 
 BEGIN {
 	$P5U::Command::Commands::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Command::Commands::VERSION   = '0.005';
+	$P5U::Command::Commands::VERSION   = '0.006';
 };
 
 use 5.010;
@@ -16,7 +16,7 @@ unshift @ISA, 'App::Cmd::Command::commands';
 
 BEGIN {
 	$P5U::Command::Commands::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Command::Commands::VERSION   = '0.005';
+	$P5U::Command::Commands::VERSION   = '0.006';
 };
 
 use constant {

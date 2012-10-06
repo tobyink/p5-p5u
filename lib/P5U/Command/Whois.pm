@@ -7,7 +7,7 @@ use P5U-command;
 
 BEGIN {
 	$P5U::Command::Whois::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Command::Whois::VERSION   = '0.005';
+	$P5U::Command::Whois::VERSION   = '0.006';
 };
 
 use constant {

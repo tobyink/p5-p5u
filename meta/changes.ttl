@@ -64,3 +64,14 @@ dist:v_0-005
 		dcs:item   [ rdfs:label "Switch from Any::Moose to Moo."@en; a dcs:Update; dcs:thanks _:mst ];
 	].
 
+dist:project :release dist:v_0-006 .
+dist:v_0-006
+	a               :Version ;
+	dc:issued       "2012-10-06"^^xsd:date ;
+	:revision       "0.006"^^xsd:string ;
+	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/P5U-0.006.tar.gz> ;
+	dcs:changeset [
+		dcs:versus dist:v_0-005 ;
+		dcs:item   [ rdfs:label "use MooX::Types::MooseLike::Base"@en ];
+	].
+

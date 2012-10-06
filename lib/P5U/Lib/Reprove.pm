@@ -2,7 +2,7 @@ package P5U::Lib::Reprove;
 
 BEGIN {
 	$P5U::Lib::Reprove::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Lib::Reprove::VERSION   = '0.005';
+	$P5U::Lib::Reprove::VERSION   = '0.006';
 };
 
 use 5.010;
