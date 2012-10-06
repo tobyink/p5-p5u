@@ -11,7 +11,7 @@ BEGIN {
 };
 
 use Moo;
-use Scalar::Does;
+use MooX::Types::MooseLike::Base qw< HashRef InstanceOf >;
 use IO::Uncompress::Gunzip qw< gunzip $GunzipError >;
 use JSON             2.00  qw< from_json >;
 use LWP::Simple      0     qw< get >;
@@ -29,11 +29,12 @@ use namespace::clean;
 
 has debian => (
 	is         => 'lazy',
-	isa        => does('HASH'),
+	isa        => HashRef,
 );
 
 has cache_file => (
 	is         => 'ro',
+	isa        => InstanceOf['Path::Class::File'],
 	required   => 1,
 );
 

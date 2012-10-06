@@ -6,7 +6,7 @@ BEGIN {
 };
 
 use Moo; no warnings;
-use Scalar::Does;
+use MooX::Types::MooseLike::Base qw< ArrayRef HashRef Maybe Num Str >;
 use JSON qw(from_json);
 use LWP::Simple qw(get);
 use Object::AUTHORITY;
@@ -20,12 +20,12 @@ use constant {
 
 has cpanid => (
 	is         => 'ro',
-	isa        => does(q[""]),
+	isa        => Str,
 );
 
 has metacpan_data => (
 	is         => 'lazy',
-	isa        => does(q[HASH]),
+	isa        => HashRef,
 );
 
 sub _build_metacpan_data
@@ -35,7 +35,7 @@ sub _build_metacpan_data
 
 has metacpan_releases => (
 	is         => 'lazy',
-	isa        => does(q[ARRAY]),
+	isa        => ArrayRef,
 );
 
 sub _build_metacpan_releases
@@ -51,7 +51,7 @@ sub _build_metacpan_releases
 
 has $_ => (
 	is         => 'lazy',
-	isa        => sub { !defined $_[0] or does($_[0], q[""]) },
+	isa        => Maybe[Str],
 ) for qw(name city region country);
 
 sub _build_name     { $_[0]->metacpan_data->{name} }
@@ -61,7 +61,7 @@ sub _build_country  { $_[0]->metacpan_data->{country} }
 
 has $_ => (
 	is         => 'lazy',
-	isa        => sub { !defined $_[0] or does($_[0], q[0+]) },
+	isa        => Maybe[Num],
 ) for qw(latitude longitude);
 
 sub _build_longitude { $_[0]->metacpan_data->{location}[0] }
@@ -69,7 +69,7 @@ sub _build_latitude  { $_[0]->metacpan_data->{location}[1] }
 
 has $_ => (
 	is         => 'lazy',
-	isa        => does(q[ARRAY]),
+	isa        => ArrayRef,
 ) for qw(website email);
 
 sub _build_website

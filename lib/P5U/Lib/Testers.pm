@@ -9,46 +9,46 @@ BEGIN {
 };
 
 use Moo;
-use Scalar::Does;
+use MooX::Types::MooseLike::Base qw< ArrayRef Bool Str InstanceOf >;
 use File::Spec       0 qw< >;
 use JSON             0 qw< from_json >;
 use LWP::Simple      0 qw< mirror is_success >;
 use List::Util       0 qw< maxstr >;
-use Object::AUTHORITY qw/AUTHORITY/;
+use Object::AUTHORITY  qw< AUTHORITY >;
 use Path::Class      0 qw< dir file >;
 use namespace::clean;
 
 has distro => (
 	is         => 'ro',
-	isa        => does(q[""]),
+	isa        => Str,
 	required   => 1,
 );
 
 has version => (
 	is         => 'lazy',
-	isa        => does(q[""]),
+	isa        => Str,
 );
 
 has os_data => (
 	is         => 'ro',
-	isa        => does(q[bool]),
+	isa        => Bool,
 	default    => sub { 0 },
 );
 
 has stable => (
 	is         => 'ro',
-	isa        => does(q[bool]),
+	isa        => Bool,
 	default    => sub { 0 },
 );
 
 has cache_dir => (
 	is         => 'lazy',
-	isa        => does(q[bool]),
+	isa        => InstanceOf['Path::Class::Dir'],
 );
 
 has results => (
 	is         => 'lazy',
-	isa        => does(q[ARRAY]),
+	isa        => ArrayRef,
 );
 
 sub version_data

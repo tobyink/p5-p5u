@@ -9,7 +9,7 @@ use 5.010;
 use autodie;
 
 use Moo;
-use Scalar::Does;
+use MooX::Types::MooseLike::Base qw< ArrayRef Bool InstanceOf Str >;
 use App::Prove qw//;
 use Class::Load qw/load_class/;
 use Carp qw/confess/;
@@ -24,39 +24,39 @@ use Object::AUTHORITY qw/AUTHORITY/;
 
 has author => (
 	is         => 'lazy',
-	isa        => does(q[""]),
+	isa        => Str,
 );
 
 has release => (
 	is         => 'ro',
-	isa        => does(q[""]),
+	isa        => Str,
 	required   => 1,
 );
 
 has version => (
 	is         => 'ro',
-	isa        => does(q[""]),
+	isa        => Str,
 	required   => 1,
 );
 
 has manifest => (
 	is         => 'lazy',
-	isa        => does(q[ARRAY]),
+	isa        => ArrayRef,
 );
 
 has testdir => (
 	is         => 'lazy',
-	isa        => does(q[Path::Class::Dir]),
+	isa        => InstanceOf['Path::Class::Dir'],
 );
 
 has working_dir => (
 	is         => 'lazy',
-	isa        => does(q[Path::Class::Dir]),
+	isa        => InstanceOf['Path::Class::Dir'],
 );
 
 has verbose => (
 	is         => 'rw',
-	isa        => does(q[bool]),
+	isa        => Bool,
 	required   => 1,
 	default    => sub { 0 },
 );
