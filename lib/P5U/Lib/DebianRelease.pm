@@ -7,7 +7,7 @@ use utf8;
 
 BEGIN {
 	$P5U::Lib::DebianRelease::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Lib::DebianRelease::VERSION   = '0.006';
+	$P5U::Lib::DebianRelease::VERSION   = '0.007';
 };
 
 use Moo;

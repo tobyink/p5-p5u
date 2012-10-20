@@ -9,7 +9,7 @@ use PerlX::Maybe 0 'maybe';
 
 BEGIN {
 	$P5U::Command::Version::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Command::Version::VERSION   = '0.006';
+	$P5U::Command::Version::VERSION   = '0.007';
 };
 
 use constant {

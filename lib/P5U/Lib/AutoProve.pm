@@ -2,7 +2,7 @@ package P5U::Lib::AutoProve;
 
 BEGIN {
 	$P5U::Lib::AutoProve::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Lib::AutoProve::VERSION   = '0.006';
+	$P5U::Lib::AutoProve::VERSION   = '0.007';
 };
 
 use 5.010;

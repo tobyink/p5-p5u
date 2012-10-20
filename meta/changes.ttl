@@ -75,3 +75,24 @@ dist:v_0-006
 		dcs:item   [ rdfs:label "use MooX::Types::MooseLike::Base"@en ];
 	].
 
+_:mxh
+	a foaf:Person;
+	foaf:name "Mateu X Hunter";
+	foaf:mbox <mailto:hunter@missoula.org>.
+
+dist:project :release dist:v_0-007.
+dist:v_0-007
+	a               :Version;
+	dc:issued       "2012-10-23"^^xsd:date;
+	:revision       "0.007"^^xsd:string;
+	rdfs:label      "Skyfall"@en;
+	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/P5U-0.007.tar.gz>;
+	dcs:changeset [
+		dcs:versus dist:v_0-006;
+		dcs:item [
+			a dcs:Bugix;
+			rdfs:label "Fix for P5U::Command::Testers."@en;
+			dcs:blame _:mxh;
+			rdfs:seeAlso <https://bitbucket.org/tobyink/p5-p5u/pull-request/1/keep-cache_dir-as-an-instanceof-path-class/diff>;
+		];
+	].
