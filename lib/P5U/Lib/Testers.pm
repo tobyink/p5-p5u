@@ -9,13 +9,15 @@ BEGIN {
 };
 
 use Moo;
-use MooX::Types::MooseLike::Base qw< ArrayRef Bool Str InstanceOf >;
 use File::Spec       0 qw< >;
 use JSON             0 qw< from_json >;
 use LWP::Simple      0 qw< mirror is_success >;
 use List::Util       0 qw< maxstr >;
+use match::simple    0 qw< M >;
 use Object::AUTHORITY  qw< AUTHORITY >;
 use Path::Class      0 qw< dir file >;
+use Type::Utils      0 qw< class_type >;
+use Types::Standard  0 qw< ArrayRef HashRef Bool Str >;
 use namespace::clean;
 
 has distro => (
@@ -43,12 +45,12 @@ has stable => (
 
 has cache_dir => (
 	is         => 'lazy',
-	isa        => InstanceOf['Path::Class::Dir'],
+	isa        => class_type { class => 'Path::Class::Dir' },
 );
 
 has results => (
 	is         => 'lazy',
-	isa        => ArrayRef,
+	isa        => ArrayRef[HashRef],
 );
 
 sub version_data
@@ -59,7 +61,7 @@ sub version_data
 	{
 		next unless $_->{version} eq $self->version;
 		my ($pv) = ($_->{perl} =~ /^5\.(\d+)/) or next;
-		next if $pv ~~ [9, 11, 13, 15];
+		next if $pv |M| [9, 11, 13, 15, 17];
 		my $key = $self->os_data
 			? sprintf("Perl 5.%03d, %s", $pv, $_->{ostext})
 			: sprintf("Perl 5.%03d", $pv);

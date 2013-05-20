@@ -9,7 +9,6 @@ use 5.010;
 use autodie;
 
 use Moo;
-use MooX::Types::MooseLike::Base qw< ArrayRef Bool InstanceOf Str >;
 use App::Prove qw//;
 use Class::Load qw/load_class/;
 use Carp qw/confess/;
@@ -21,6 +20,8 @@ use Path::Class qw//;
 use LWP::Simple qw/get/;
 use Module::Manifest qw//;
 use Object::AUTHORITY qw/AUTHORITY/;
+use Types::Standard qw< ArrayRef Bool Str >;
+use Type::Utils qw< class_type >;
 
 has author => (
 	is         => 'lazy',
@@ -46,12 +47,12 @@ has manifest => (
 
 has testdir => (
 	is         => 'lazy',
-	isa        => InstanceOf['Path::Class::Dir'],
+	isa        => class_type { class => 'Path::Class::Dir' },
 );
 
 has working_dir => (
 	is         => 'lazy',
-	isa        => InstanceOf['Path::Class::Dir'],
+	isa        => class_type { class => 'Path::Class::Dir' },
 );
 
 has verbose => (

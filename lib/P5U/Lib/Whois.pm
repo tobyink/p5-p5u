@@ -6,7 +6,7 @@ BEGIN {
 };
 
 use Moo; no warnings;
-use MooX::Types::MooseLike::Base qw< ArrayRef HashRef Maybe Num Str >;
+use Types::Standard qw< ArrayRef HashRef Maybe Num Str >;
 use JSON qw(from_json);
 use LWP::Simple qw(get);
 use Object::AUTHORITY;

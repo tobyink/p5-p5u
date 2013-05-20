@@ -44,15 +44,16 @@ sub execute
 {
 	my ($self, $opt, $args) = @_;
 	
+	require match::smart;
 	my $filter = scalar(@$args)
 		? $args
-		: sub { not(shift ~~ [qw(aliases commands help)]) };
+		: sub { !match::smart::match(shift, [qw(aliases commands help)]) };
 	
 	foreach my $cmd (sort $self->app->command_plugins)
 	{
 		my ($preferred, @aliases) = $cmd->command_names;
 		printf("%-16s: %s\n", $preferred, "@aliases")
-			if $preferred ~~ $filter;
+			if match::smart::match($preferred, $filter);
 	}
 }
 

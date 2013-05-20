@@ -11,11 +11,13 @@ BEGIN {
 };
 
 use Moo;
-use MooX::Types::MooseLike::Base qw< HashRef InstanceOf >;
 use IO::Uncompress::Gunzip qw< gunzip $GunzipError >;
 use JSON             2.00  qw< from_json >;
 use LWP::Simple      0     qw< get >;
+use match::smart     0     qw< M >;
 use Object::AUTHORITY qw/AUTHORITY/;
+use Type::Utils      0     qw< class_type >;
+use Types::Standard  0.004 qw< HashRef >;
 
 my $json   = JSON::->new->allow_nonref;
 
@@ -34,8 +36,8 @@ has debian => (
 
 has cache_file => (
 	is         => 'ro',
-	isa        => InstanceOf['Path::Class::File'],
 	required   => 1,
+	isa        => class_type { class => 'Path::Class::File' },
 );
 
 sub _build_debian
@@ -121,7 +123,7 @@ sub author_data
 	for my $dist (sort keys %dists)
 	{
 		my $pkg = dist2deb($dist);
-		next unless $pkg ~~ $pkgs;
+		next unless $pkg |M| $pkgs;
 		
 		push @data => [
 			$dist,
