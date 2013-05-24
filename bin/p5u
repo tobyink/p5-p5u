@@ -10,6 +10,12 @@ P5U->run;
 
 __END__
 
+=pod
+
+=encoding utf-8
+
+=for stopwords ct MetaCPAN
+
 =head1 NAME
 
 p5u - utilities for Perl 5 development and administration
