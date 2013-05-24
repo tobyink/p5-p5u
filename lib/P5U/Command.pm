@@ -1,5 +1,10 @@
 package P5U::Command;
 
+BEGIN {
+	$P5U::Command::AUTHORITY = 'cpan:TOBYINK';
+	$P5U::Command::VERSION   = '0.100';
+};
+
 use 5.010;
 use strict;
 use App::Cmd::Setup-command;

@@ -45,6 +45,12 @@ sub test_pod
 
 __END__
 
+=pod
+
+=encoding utf-8
+
+=for stopwords testpod
+
 =head1 NAME
 
 P5U::Lib::TestPod - support library implementing p5u's testpod command

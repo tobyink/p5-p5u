@@ -69,6 +69,12 @@ sub _format_hits
 
 __END__
 
+=pod
+
+=encoding utf-8
+
+=for stopwords BackPAN MetaCPAN
+
 =head1 NAME
 
 P5U::Lib::Version - support library implementing p5u's version command
@@ -89,7 +95,7 @@ This is a support library for the version command.
 =item C<< local_module_info($module) >>
 
 Locates a Perl module on the local machine, searching through @INC.
-For each file found (there may be mre than one) finds the version
+For each file found (there may be more than one) finds the version
 number of the module.
 
 Returns a list of strings formatted like C<< "FILE: VERSION" >>.

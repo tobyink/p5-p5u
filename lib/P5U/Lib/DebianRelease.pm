@@ -154,6 +154,12 @@ sub distribution_data
 
 __END__
 
+=pod
+
+=encoding utf-8
+
+=for stopwords AoA libfoo-bar-perl debian-release
+
 =head1 NAME
 
 P5U::Lib::DebianRelease - support library implementing p5u's debian-release command

@@ -212,6 +212,12 @@ sub run
 
 __END__
 
+=pod
+
+=encoding utf-8
+
+=for stopwords refactored MetaCPAN
+
 =head1 NAME
 
 P5U::Lib::Reprove - download a distribution's tests and prove them
@@ -240,7 +246,7 @@ It makes a number of assumptions about how a distribution's test cases are
 structured, but these assumptions do tend to hold in most cases.
 
 This work was previously released as B<Module::Reprove>, but has now been
-rafactored and integrated with L<P5U>.
+refactored and integrated with L<P5U>.
 
 =head2 Constructor
 

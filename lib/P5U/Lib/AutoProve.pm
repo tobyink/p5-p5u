@@ -87,6 +87,12 @@ sub get_app
 
 __END__
 
+=pod
+
+=encoding utf-8
+
+=for stopwords chdir
+
 =head1 NAME
 
 P5U::Lib::AutoProve - support library implementing p5u's auto-prove command
@@ -123,7 +129,7 @@ on.
 %opts represents the command-line options passed to prove. When options
 have an abbreviated and full version (e.g. C<< -v >> versus C<< --verbose >>)
 the longer version is expected, without the dashes. For boolean options,
-the value is ignored; the existance of the option in the hash at all (even
+the value is ignored; the existence of the option in the hash at all (even
 with a false or undefined value) switches it on.
 
 =back

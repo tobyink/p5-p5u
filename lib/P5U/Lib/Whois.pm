@@ -184,7 +184,7 @@ sub report
 			{
 				$report .= sprintf(qq{%-16s%s\n}, @{$_}{qw{name id}})
 			}
-		}		
+		}
 	}
 	
 	return $report;
@@ -195,6 +195,12 @@ sub report
 
 
 __END__
+
+=pod
+
+=encoding utf-8
+
+=for stopwords MetaCPAN whois co-ordinates websites
 
 =head1 NAME
 

@@ -165,6 +165,12 @@ sub _build_cache_dir
 
 __END__
 
+=pod
+
+=encoding utf-8
+
+=for stopwords HoA
+
 =head1 NAME
 
 P5U::Lib::Testers - support library implementing p5u's testers command
@@ -234,7 +240,7 @@ something sensible will be used.
 
 =item C<results>
 
-The CPAN testsers results, as an array of hashes. You generally do not
+The CPAN testers results, as an array of hashes. You generally do not
 want to set this yourself, but rely on this module to build it for you!
 
 =back
