@@ -39,7 +39,7 @@ Or positional arguments:
 
 	p5u reprove JSON 2.53
 
-The first argument is the distribution name or module name; the second 
+The first argument is the distribution name or module name; the second
 argument is the version; and the third argument is the CPAN ID of the
 author. The presence of "::" is used to disambiguate between distribution
 and module names; in the case of something like "JSON" which is ambiguous,
@@ -87,7 +87,7 @@ sub execute
 	
 	$self->usage_error("You must provide a distribution or module name.")
 		unless $opt->{release} || $opt->{module};
-		
+	
 	P5U::Lib::Reprove::
 		-> new(
 			maybe author      => $opt->{author},
@@ -95,7 +95,7 @@ sub execute
 			maybe release     => $opt->{release},
 			maybe version     => $opt->{version},
 			maybe verbose     => $opt->{verbose},
-			      working_dir => $self->get_tempdir,
+			      working_dir => $self->get_tempdir, ##WS
 		)
 		-> run;
 }

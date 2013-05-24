@@ -20,7 +20,7 @@ sub description
 <<'DESCRIPTION'
 Most p5u commands can be invoked with shorter aliases.
 
-	p5u version Mouse 
+	p5u version Mouse
 	p5u v Mouse           # same thing
 
 The aliases command (which, ironically, has no shorter alias) shows existing

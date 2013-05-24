@@ -81,7 +81,7 @@ sub execute
 		push @lines, q(Not found) unless @lines;
 		
 		say "\t$_" for @lines;
-		say q() if @$args; 
+		say q() if @$args;
 	}
 }
 

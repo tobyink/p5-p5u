@@ -25,7 +25,7 @@ sub test_pod
 {
 	my $self = shift;
 	
-	my @files = 
+	my @files =
 		_uniq
 		map {
 			(-d $_)

@@ -87,10 +87,10 @@ sub format_report
 			(my $debx = $deb) =~ s/[-].+//;
 			sprintf(
 				"%-40s%15s%15s  %s\n",
-				  $dist,
-				  $cpan,
-				  $deb,
-				  ($debx eq $cpan ? q[  ] : q[!!]),
+				$dist,
+				$cpan,
+				$deb,
+				($debx eq $cpan ? q[  ] : q[!!]),
 			);
 		}
 		@$data;

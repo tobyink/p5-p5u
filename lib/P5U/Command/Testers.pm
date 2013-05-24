@@ -52,6 +52,7 @@ sub execute
 		or $self->usage_error("You must provide a distribution name.");
 	$distro =~ s{::}{-}g;
 	
+	# no Test::Tabs
 	my $helper = P5U::Lib::Testers::->new(
 		      distro    =>   $distro,
 		      os_data   => !!$opt->{os_data},
@@ -59,6 +60,7 @@ sub execute
 		maybe version   =>   $opt->{version},
 		      cache_dir =>   $self->get_cachedir,
 	);
+	# use Test::Tabs
 	
 	if ($opt->{summary})
 		{ print $helper->summary_report }
