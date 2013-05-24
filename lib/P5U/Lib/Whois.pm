@@ -16,6 +16,7 @@ use constant {
 	template_email             => '%s@cpan.org',
 	template_metacpan_data     => 'http://api.metacpan.org/v0/author/%s',
 	template_metacpan_releases => 'http://api.metacpan.org/v0/release/_search?q=author:%s+AND+status:latest&fields=name,date,abstract,status&size=5000',
+	template_metacpan_popular  => 'http://api.metacpan.org/v0/favorite/_search?q=author:%s&fields=distribution&size=5000',
 };
 
 has cpanid => (
@@ -33,7 +34,7 @@ sub _build_metacpan_data
 	from_json get sprintf __PACKAGE__->template_metacpan_data, uc shift->cpanid
 }
 
-has metacpan_releases => (
+has [qw(metacpan_releases metacpan_popular)] => (
 	is         => 'lazy',
 	isa        => ArrayRef,
 );
@@ -41,13 +42,23 @@ has metacpan_releases => (
 sub _build_metacpan_releases
 {
 	[
-		map { $_->{fields} }
-		@{
+		map $_->{fields}, @{
 			(from_json get sprintf __PACKAGE__->template_metacpan_releases, uc shift->cpanid)
 				->{hits}{hits}
 		}
 	]
 }
+
+sub _build_metacpan_popular
+{
+	my @plusplus = map $_->{fields}{distribution}, @{
+		(from_json get sprintf __PACKAGE__->template_metacpan_popular, uc shift->cpanid)
+			->{hits}{hits}
+	};
+	my %dist; $dist{$_}++ for @plusplus;
+	[ sort { $b->[1] <=> $a->[1] or $a->[0] cmp $b->[0] } map [ $_ => $dist{$_} ], keys %dist ];
+}
+
 
 has $_ => (
 	is         => 'lazy',
@@ -148,7 +159,7 @@ sub report
 		my @namespaces = $self->namespaces;
 		$report .= sprintf "\nNamespaces: %s\n" => join q(, ), @namespaces[0..9]
 			if @namespaces;
-			
+		
 		my @recent =
 			map {
 				sprintf
@@ -161,7 +172,11 @@ sub report
 			@{ $self->metacpan_releases || [] };
 		$report .= join "\n", q(), q(Recent:), @recent[0..9], q()
 			if @recent;
-		
+
+		my @popular = map sprintf('%s - %d votes', @$_), @{ $self->metacpan_popular || [] };
+		$report .= join "\n", q(), q(Popular:), @popular[0..9], q()
+			if @recent;
+
 		if (@{ $self->metacpan_data->{profile} || [] })
 		{
 			$report .= "\n";
@@ -169,7 +184,7 @@ sub report
 			{
 				$report .= sprintf(qq{%-16s%s\n}, @{$_}{qw{name id}})
 			}
-		}
+		}		
 	}
 	
 	return $report;
