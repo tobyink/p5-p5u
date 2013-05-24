@@ -10,8 +10,7 @@ BEGIN {
 };
 
 use Object::AUTHORITY;
-use Path::Class;
-use Path::Class::Rule;
+use Path::Iterator::Rule;
 use Test::More;
 use Test::Pod;
 
@@ -27,14 +26,15 @@ sub test_pod
 	
 	my @files =
 		_uniq
+		map "Path::Tiny"->new($_),
 		map {
 			(-d $_)
-				? Path::Class::Rule::->new->or(
-					Path::Class::Rule::->new->perl_module,
-					Path::Class::Rule::->new->perl_pod,
-					Path::Class::Rule::->new->perl_script,
+				? Path::Iterator::Rule::->new->or(
+					Path::Iterator::Rule::->new->perl_module,
+					Path::Iterator::Rule::->new->perl_pod,
+					Path::Iterator::Rule::->new->perl_script,
 					)->all($_)
-				: Path::Class::File::->new($_)
+				: $_
 		} @_;
 	
 	plan tests => scalar @files;

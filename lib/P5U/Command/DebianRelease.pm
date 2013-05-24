@@ -56,7 +56,7 @@ sub execute
 		if $opt->{author} && $opt->{distribution};
 	
 	my $helper = P5U::Lib::DebianRelease::->new(
-		cache_file  => $self->get_cachedir->file('allpackages.cache'),
+		cache_file  => $self->get_cachedir->child('allpackages.cache'),
 	);
 	
 	if ($opt->{author})

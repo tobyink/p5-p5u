@@ -15,7 +15,7 @@ use LWP::Simple      0 qw< mirror is_success >;
 use List::Util       0 qw< maxstr >;
 use match::simple    0 qw< M >;
 use Object::AUTHORITY  qw< AUTHORITY >;
-use Path::Class      0 qw< dir file >;
+use Path::Tiny       0 qw< path >;
 use Type::Utils      0 qw< class_type >;
 use Types::Standard  0 qw< ArrayRef HashRef Bool Str >;
 use namespace::clean;
@@ -45,7 +45,7 @@ has stable => (
 
 has cache_dir => (
 	is         => 'lazy',
-	isa        => class_type { class => 'Path::Class::Dir' },
+	isa        => class_type { class => 'Path::Tiny' },
 );
 
 has results => (
@@ -136,7 +136,7 @@ sub _build_results
 		substr($self->distro, 0, 1),
 		$self->distro,
 	);
-	my $results_file = file(
+	my $results_file = path(
 		$self->cache_dir,
 		sprintf('%s.json', $self->distro),
 	);
@@ -158,12 +158,7 @@ sub _build_results
 
 sub _build_cache_dir
 {
-	my $dir = dir(
-		File::Spec::->tmpdir,
-		'CpanTesters',
-	);
-	dir($dir)->mktree unless -d $dir;
-	return $dir;
+	"Path::Tiny"->tempdir;
 }
 
 1;
@@ -177,10 +172,10 @@ P5U::Lib::Testers - support library implementing p5u's testers command
 =head1 SYNOPSIS
 
  use P5U::Lib::DebianRelease;
- use Path::Class qw(file dir);
+ use Path::Tiny qw(path);
  
  my $dr = P5U::Lib::DebianRelease->new(
-   cache_file  => file("/tmp/debian.data"),
+   cache_file => path("/tmp/debian.data"),
  );
  
  my $author_data = $dr->author_data('tobyink');

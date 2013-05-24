@@ -37,7 +37,7 @@ has debian => (
 has cache_file => (
 	is         => 'ro',
 	required   => 1,
-	isa        => class_type { class => 'Path::Class::File' },
+	isa        => class_type { class => 'Path::Tiny' },
 );
 
 sub _build_debian
@@ -46,13 +46,16 @@ sub _build_debian
 	my %pkgs;
 	unless ((-f $self->cache_file) && (-M _) < 7)
 	{
-		my $res = get "http://packages.debian.org/unstable/allpackages?format=txt.gz";
-		gunzip(\$res => $self->cache_file->stringify)
+		my $res = get "http://packages.debian.org/unstable/allpackages?format=txt.gz"
+			or die "get failed\n";
+		($res =~ /^All Debian Package/is)
+			? $self->cache_file->spew([$res])
+			: gunzip(\$res => $self->cache_file->stringify)
 			or die "gunzip failed: $GunzipError\n";
 	}
-	for ($self->cache_file->slurp)
+	for ($self->cache_file->lines_utf8)
 	{
-		next unless /^(lib\S+?-perl) \((\S+).*\)/;
+		next unless /^(lib\S+?-perl) \(([^\s\)]+).*\)/;
 		$pkgs{$1} = $2;
 	}
 	\%pkgs
@@ -158,10 +161,10 @@ P5U::Lib::DebianRelease - support library implementing p5u's debian-release comm
 =head1 SYNOPSIS
 
  use P5U::Lib::DebianRelease;
- use Path::Class qw(file dir);
+ use Path::Tiny qw(path);
  
  my $dr = P5U::Lib::DebianRelease->new(
-   cache_file  => file("/tmp/debian.data"),
+   cache_file  => path("/tmp/debian.data"),
  );
  
  my $author_data = $dr->author_data('tobyink');
@@ -194,7 +197,7 @@ Creates a new instance of the class.
 
 =item C<< cache_file >>
 
-A Path::Class::File representing the location we should download Debian
+A Path::Tiny object representing the location we should download Debian
 release data to (and cache it). This is required, so provided it to the
 constructor.
 

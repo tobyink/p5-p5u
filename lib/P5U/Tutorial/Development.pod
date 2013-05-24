@@ -11,13 +11,13 @@ called something like P5U::Lib::Foo), and the command module. The command
 module only loads the workhorse when it's actually needed.
 
 There are some modules that you can use without worrying about performance
-(because App::Cmd or P5U has already loaded them) are L<Class::Load>,
-L<JSON>, L<Path::Class>.
+(because App::Cmd or P5U has already loaded them). These include
+L<Class::Load>, L<JSON> and L<Path::Tiny>.
 
 If you need OO, then use L<Moo> (but do it in a workhorse module that's
-loaded on demand), L<Types::Standard> and L<namespace::clean>. If you
-need the web, then use L<LWP::UserAgent> or L<LWP::Simple>. If you need
-to do stuff with the file system, use L<Path::Class> and L<Path::Class::Rule>.
+loaded on demand), L<Types::Standard> and L<namespace::clean>. If you need
+the web, then use L<LWP::UserAgent> or L<LWP::Simple>. If you need to do
+stuff with the file system, use L<Path::Tiny> and L<Path::Iterator::Rule>.
 These are good modules, and they're already listed as P5U dependencies, so
 there's no reason to avoid them.
 
@@ -90,20 +90,20 @@ are:
 
 =item C<< $self->get_tempdir >>
 
-Each time this is called returns a new empty directory as a
-L<Path::Class::Dir> object. When this object goes out of scope, the
-directory and its contents will be deleted.
+Each time this is called returns a new empty directory as a L<Path::Tiny>
+object. When this object goes out of scope, the directory and its contents
+will be deleted.
 
 =item C<< $self->get_cachedir >>
 
-Returns a L<Path::Class::Dir> object representing a directory where
-the command can cache data. In the current version, this cache is
-not automatically purged, but in future versions it will be.
+Returns a L<Path::Tiny> object representing a directory where the command
+can cache data. In the current version, this cache is not automatically
+purged, but in future versions it will be.
 
 =item C<< $self->get_datadir >>
 
-Returns a L<Path::Class::Dir> object representing a directory where
-the command can keep long-lived data.
+Returns a L<Path::Tiny> object representing a directory where the command
+can keep long-lived data.
 
 =item C<< $self->get_config >>
 
