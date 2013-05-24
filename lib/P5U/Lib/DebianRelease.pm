@@ -7,7 +7,7 @@ use utf8;
 
 BEGIN {
 	$P5U::Lib::DebianRelease::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Lib::DebianRelease::VERSION   = '0.007';
+	$P5U::Lib::DebianRelease::VERSION   = '0.100';
 };
 
 use Moo;
@@ -274,7 +274,7 @@ belongs to him. Any blame is almost certainly down to the changes I've made.
 
 =head1 COPYRIGHT AND LICENCE
 
-This software is copyright (c) 2012 by Toby Inkster.
+This software is copyright (c) 2012-2013 by Toby Inkster.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

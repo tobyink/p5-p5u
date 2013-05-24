@@ -7,7 +7,7 @@ use P5U-command;
 
 BEGIN {
 	$P5U::Command::DebianRelease::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Command::DebianRelease::VERSION   = '0.007';
+	$P5U::Command::DebianRelease::VERSION   = '0.100';
 };
 
 use constant {

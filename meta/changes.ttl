@@ -96,3 +96,29 @@ dist:v_0-007
 			rdfs:seeAlso <https://bitbucket.org/tobyink/p5-p5u/pull-request/1/keep-cache_dir-as-an-instanceof-path-class/diff>;
 		];
 	].
+
+dist:project :release dist:v_0-100.
+dist:v_0-100
+	a               :Version;
+	dc:issued       "2013-05-24"^^xsd:date;
+	:revision       "0.100"^^xsd:string;
+	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/P5U-0.100.tar.gz>;
+	dcs:changeset [
+		dcs:versus dist:v_0-007;
+		dcs:item [
+			a dcs:Update;
+			rdfs:label "Switch from Path::Class and Path::Class::Rule to Path::Tiny and Path::Iterator::Rule";
+		];
+		dcs:item [
+			a dcs:Update;
+			rdfs:label "Switch from MooX::Types::MooseLike to Types::Standard";
+		];
+		dcs:item [
+			a dcs:Update;
+			rdfs:label "Switch from smartmatch to match::simple and match::smart";
+		];
+		dcs:item [
+			a dcs:Addition;
+			rdfs:label "whois command in verbose mode now shows a list of a user's most popular distributions";
+		];
+	].

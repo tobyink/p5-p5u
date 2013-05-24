@@ -7,7 +7,7 @@ use P5U-command;
 
 BEGIN {
 	$P5U::Command::TestPod::AUTHORITY = 'cpan:TOBYINK';
-	$P5U::Command::TestPod::VERSION   = '0.007';
+	$P5U::Command::TestPod::VERSION   = '0.100';
 };
 
 use constant {
