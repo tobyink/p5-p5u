@@ -43,7 +43,7 @@ sub execute
 	my ($self, $opt, $args) = @_;
 
 	$self->usage_error("You must provide a distribution name.")
-		if $opt->{summary} && ($opt->{os_data} or length $opt->{version});
+		if $opt->{summary} && ($opt->{os} or length $opt->{version});
 		
 	$self->usage_error("You must provide a distribution name.")
 		if $opt->{stable} && length $opt->{version};
@@ -55,7 +55,7 @@ sub execute
 	# no Test::Tabs
 	my $helper = P5U::Lib::Testers::->new(
 		      distro    =>   $distro,
-		      os_data   => !!$opt->{os_data},
+		      os_data   => !!$opt->{os},
 		      stable    => !!$opt->{stable},
 		maybe version   =>   $opt->{version},
 		      cache_dir =>   $self->get_cachedir,
